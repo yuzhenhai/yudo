@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+
+		<title>Push Sample</title>
+
+		<script src="/third_party/jquery-2.1.4/jquery.js"></script>
+		<!-- jquery-ui 1.11.4 //-->
+		<script src="/third_party/jquery-ui-1.11.4/jquery-ui.js"></script>
+		<!-- bootstrap 3.3.5 // -->
+		<script src="/third_party/bootstrap-3.3.5/js/bootstrap.js"></script>
+		<link href="/third_party/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    
+		<!-- Custom styles for this template -->
+        <link href="/third_party/bootstrap-3.3.5/css/bootstrap-theme.css" rel="stylesheet">
+        
+        <!-- jquery 2.1.4 //-->
+        <script type="text/javascript" src="/third_party/jquery-2.1.4/jquery.js"></script>
+        <!-- jquery-ui 1.11.4 //-->
+        <script type="text/javascript" src="/third_party/jquery-ui-1.11.4/jquery-ui.js"></script>
+
+        <script>
+            var jq = $.noConflict();
+        </script>
+
+        <script type="text/javascript" src="/js/JLAMP.polyfill.min.js"></script>
+        <script type="text/javascript" src="/js/JLAMP.min.js"></script>
+        <script type="text/javascript" src="/js/JLAMP.common.js"></script>
+        <script type="text/javascript" src="/js/JLAMP.menu.min.js"></script>
+        <script type="text/javascript" src="/js/JLAMP.autobinding.min.js"></script>
+        <script type="text/javascript" src="/js/JLAMP.modal.min.js"></script>
+    
+		<script>
+			var jq = $.noConflict();
+			
+			function doTest() {
+				var msg = jq("#msg").val();
+				
+				jq.ajax({
+					beforeSend : function(xhr, setting) {
+						xhr.setRequestHeader("jmobile", "jmobile");
+					},
+					url: "/Push/send_prc",
+					data: {
+						msg: msg
+					},
+					type: "post",
+					dataType: "json",
+					success: function (res, status, xhr) {
+						if(res.returnCode == 0) {
+							alert("전송되었습니다.");
+							return false;
+						} else {
+							alert(res.retunMsg);
+						}
+					},
+					error: function (xhr, status, error) {
+						alert(error);
+					}
+				});
+				return false;
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="table-responsive panel panel-primary">
+				<div class="panel-heading">
+					Message Push
+				</div>
+				<form id="frmModify" name="frmModify" method="post" onsubmit="return doTest()">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td> 메시지 </td>
+							<td><input type="text" id="msg" name="msg" class="form-control"></td>
+                        </tr>
+                        <th>TextArea</th>
+                        <td><textarea id="txtarea"></textarea></td>
+					</tbody>
+				</table>
+				<div class="panel-footer text-right">
+					<button type="submit" class="btn btn-sm btn-success" id="btnOk" name="btnOk">메시지전송</button>
+                </div>
+				</form>
+			</div>
+        </div>
+        <script>
+            jq(document).ready(function() {
+                 // textarea 테스트
+                jq("#txtarea").keyup(function() {
+                    var value = {
+                        obj: this,
+                        br: true,
+                        space: false,
+                        allowSC: true
+                    }
+                    // jq(this).val(JLAMP.common.repSpecialChar(jq(this).val()));
+                    // jq(this).val(JLAMP.common.repSpecialChar(value));
+                    JLAMP.common.repSpecialChar(value);
+                });
+            }); 
+        </script>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+[Sat Jun 29 12:16:41.720829 2019] [:error] [pid 19188] [client 219.147.23.86:29380] PHP Notice:  Undefined variable: result in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2300/models/Worker10_model.php on line 79, referer: http://merp.yudo.com.cn:8183/WEI_2300/WEI_2300?formKey=Menu&menuSelection=asm

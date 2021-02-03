@@ -1,0 +1,496 @@
+
+body{
+    position:relative !important;
+    -webkit-overflow-scrolling : touch;
+}
+a{text-decoration:none}
+table,td,th{word-break: keep-all !important;}
+.mui-preview-image.mui-fullscreen {
+    position: fixed;
+    z-index: 20;
+    background-color: #000;
+}
+.mui-preview-header,
+.mui-preview-footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 10;
+}
+.mui-preview-header {
+    height: 44px;
+    top: 0;
+}
+.mui-preview-footer {
+    height: 50px;
+    bottom: 0px;
+}
+.mui-preview-header .mui-preview-indicator {
+    display: block;
+    line-height: 25px;
+    color: #fff;
+    text-align: center;
+    margin: 15px auto 4;
+    width: 70px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    font-size: 16px;
+}
+.mui-preview-image {
+    display: none;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+    background: none;
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+    display: none;
+}
+.mui-zoom-scroller {
+    position: absolute;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    -webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+    width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+    display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+    display: table-cell;
+    vertical-align: middle;
+}
+.mui-preview-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.mui-preview-loading.mui-active {
+    display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    height: 50px;
+    width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+    -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+p img {
+    max-width: 100%;
+    height: auto;
+}
+.layui_icon{
+    font-size: 25px !important;
+    line-height: 29px !important;
+    float: right !important;
+    margin-right: 20px !important;
+}
+.layui_green{
+    color: #5FB878 !important;
+}
+.noscroll{
+    height: 100%;
+    overflow: hidden !important ;
+}
+.AS_menu{
+    height: 60%;
+    padding: 200px 50px 0 50px;
+    width: 100%;
+}
+.multi-police{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 600;
+    top: 0;
+    background: rgba(0, 0, 0, 0.11);
+}
+.multi-input{
+    width: 100% !important;
+    height: 29px !important;
+    padding-left: 5px !important;
+    border-radius: 5px !important;
+    /*box-shadow: none !important;*/
+    /*outline:none!important;*/
+    border: 1px solid #d7d7d7 !important;
+    /*background: transparent!important;*/
+    cellspacing:30px;
+    margin-bottom: 0 !important;
+}
+.th-red{
+    color: #ff6374 !important;
+}
+.xwrite{
+    background: #f7f7f7 !important;
+    color: #a9a9a9 !important;
+}
+.search_table th{
+    word-break: keep-all !important;
+    white-space:nowrap !important;
+    font-size: 15px !important;
+}
+textarea{
+    height: 60px !important;
+    padding: 0 0 0 5px !important;
+    border: 1px solid #d7d7d7 !important;
+    /*outline:none !important;*/
+    background: transparent !important;
+    margin-bottom: 0 !important;
+}
+
+#find-window{
+    animate-duration: 0.4s;
+}
+
+.multi-list{
+    padding-right: 5px;
+    width: 100%;
+    height: 29px;
+    border-radius: 5px;
+    border: 1px solid #f9f9f9;
+}
+
+.multi-find-windows{
+    width: 100% !important;
+    height: 29px !important;
+    padding-left: 5px !important;
+    border: 1px solid #dbdbdb !important;
+    background-color: #fff !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+
+.button-2000{
+    padding: 2px 4px !important;
+    background: white;
+    font-size: 14px;
+    height: 29px;
+    border-radius: 3px;
+    width: 60px;
+    border: 1px solid #dedede;
+    color: #a1a1a1;
+}
+
+.button-2000:active{
+    background: #c8c8c8 !important;
+}
+
+.input-title{
+    width: 100px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.find-window{
+    top: 0;
+    z-index: 1000;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #bababa;
+}
+.find-window-top{
+    background: white;
+    text-align: left;
+    padding: 6px;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #bababa;
+}
+
+.loadding{
+    color: #4d4d4d;
+    margin-top: 10px;
+    font-weight: bold;
+    height: 29px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px
+}
+
+.multi-select{
+    /*background: transparent;*/
+    position: relative;
+    /*height: 29px;*/
+    /*width: 100%;*/
+    /*border-radius: 3px;*/
+    /*border: 0;*/
+}
+
+.multi-select > i{
+    position:absolute;
+    font-size: 20px;
+    color: #5e5e5e;
+    top: 4px;
+    right: 3px;
+}
+
+.jlamp-select{
+    display: none;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 2;
+    max-height: 300px;
+    width: 100px;
+    text-indent: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    margin:0px 0px 0px 0px;
+    color: #505050;
+}
+
+.jlamp-select-action{
+    display: block !important;
+}
+
+.jlamp-select > ul > li{
+    padding: 7px;
+    height: 35px !important;
+    border-bottom: 1px solid #f2f2f2 !important;
+}
+
+.jlamp-select > ul > li :active{
+    background: #DCDCDC !important;
+}
+
+.jlamp-select > ul > li :hover{
+    background: #DCDCDC !important;
+}
+
+.mui-preview-image.mui-fullscreen {
+  position: fixed;
+  z-index: 20;
+  background-color: #000;
+}
+
+.mui-preview-header,
+.mui-preview-footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+.mui-preview-header {
+    height: 44px;
+    top: 0;
+}
+
+.mui-preview-footer {
+    height: 50px;
+    bottom: 0px;
+}
+
+.mui-preview-header .mui-preview-indicator {
+    display: block;
+    line-height: 25px;
+    color: #fff;
+    text-align: center;
+    margin: 15px auto 4;
+    width: 70px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    font-size: 16px;
+}
+.mui-preview-image {
+    display: none;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+    background: none;
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+    display: none;
+}
+.mui-zoom-scroller {
+    position: absolute;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    -webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+    width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+    display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+    display: table-cell;
+    vertical-align: middle;
+}
+.mui-preview-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.mui-preview-loading.mui-active {
+    display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    height: 50px;
+    width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+    -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+p img {
+    max-width: 100%;
+    height: auto;
+}

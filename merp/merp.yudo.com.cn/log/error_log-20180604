@@ -1,0 +1,2 @@
+[Mon Jun 04 09:15:45.932805 2018] [:error] [pid 29240] [client 180.107.195.29:2673] PHP Fatal error:  Cannot redeclare WEI_2100::save_photo() in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2100/controllers/WEI_2100.php on line 555
+[Mon Jun 04 09:15:49.535381 2018] [:error] [pid 29241] [client 180.107.195.29:1024] PHP Fatal error:  Cannot redeclare WEI_2100::save_photo() in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2100/controllers/WEI_2100.php on line 555

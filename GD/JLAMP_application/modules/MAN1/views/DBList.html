@@ -1,0 +1,57 @@
+{ #header }
+
+<div id="slide_panel" style="padding-top:50px;">
+    <div>
+        <table>
+            <!--tr>
+                <th>Special Char</th>
+                <td>
+                    <input type="text" id="txtSC">
+                </td>
+            </tr-->
+            <tr>
+                <th>기준일</th>
+                <td>
+                    <input type="text" id="base_date" class="search_input text-center" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th>언어</th>
+                <td>
+                    <!-- <input id="lang_code" name="lang_code"
+                        jlamp-autobinding
+                        bizcomponentid="L_SYS008"
+                        jlamp-ab-bgcolor="#fffee5;"
+                        jlamp-ab-showcode='true'
+                        jlamp-ab-emptyrow='true' /> -->
+                    <select id="lang_code" name="lang_code" style="width: 100%">
+                        <option value="KOR">Korean</option>
+                        <option value="ENG">English</option>
+                        <option value="JPN">Japanese</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="btnSearch" value="Search">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table id="list_html">
+            <tr>
+                <ht>구분</ht>
+                <ht>금일(수주)</ht>
+                <ht>금일(출고)</ht>
+                <ht>금일(계산서)</ht>
+                <ht>금일(입금)</ht>
+                <ht>금일(생산출고)</ht>
+            </tr>
+        </table>
+    </div>
+    <div id="chart">
+    </div>
+</div>
+
+{ #footer }

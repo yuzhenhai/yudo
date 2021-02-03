@@ -1,0 +1,42 @@
+<?php /* Template_ 2.2.6 2017/12/01 11:00:29 /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/MAN1/views/MAN1.html 000001891 */ ?>
+<?php $this->print_("header",$TPL_SCP,1);?>
+
+
+<div id="slide_panel" style="padding-top:50px;">
+Hello!! J.LAMP5~
+
+    <p>
+        YUDO Suzhou Mobile!
+    </p>
+
+    <input type='button' id='btnHello' value='영업집계표(일)' class="bn_normal_100"></input>
+    <input type='button' id='btnWEI_1300' value='미진행실적' class="bn_normal_100"></input>
+    <input type="button" id="btnExecCamera" value="Camera" class="bn_normal_100"></input>
+    <input type="button" id="btnGPS" value="GPS" class="bn_normal_100"></input>
+    <div>Lat: <input type="text" id="txtLat" /></div>
+    <div>Lng: <input type="text" id="txtLng" /></div>
+    <input type="button" id="btnQR" value='QR' class="bn_normal_100"></input>
+    <div>QR Result: <input type="text" id="txtQR"></div>
+    <input type="button" id="btnContact" value='Contact' class="bn_normal_100"></input>
+    <div>Contact: <input type="text" id="txtContact"></div>
+    <input type="button" id="btnGallery" value='Gallery' class="bn_normal_100"></input>
+    <div>Gallery: <input type="text" id="txtGallery"></div>
+
+    <div>---</div>
+    <input type="button" id="btnLoadIn" value='Load Indicator' class="bn_normal_100"></input>
+    <input type="button" id="btnHideIn" value='Hide Indicator' class="bn_normal_100"></input>
+    <div>---</div>
+    <form id="frm_jmobile" name="frm_jmobile" action="post" onsubmit="return doUpload()">
+        <div><input type="file" id="upload_file" name="upload_file"></div>
+        <div><input type="submit" id="btn_upload" value="Upload" class="bn_normal_100"></div>
+    </form>
+    <div id="img_area">
+        <img id="thumb_img">
+        <img id="org_img">
+    </div>
+
+
+
+</div>
+
+<?php $this->print_("footer",$TPL_SCP,1);?>

@@ -1,0 +1,1 @@
+[Wed May 29 09:43:29.570028 2019] [:error] [pid 32344] [client 58.209.70.225:2635] PHP Fatal error:  Class 'Log' not found in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2000/controllers/WEI_2000.php on line 837, referer: http://merp.yudo.com.cn:8183/WEI_2000/WEI_2000?formKey=Menu&menuSelection=asm

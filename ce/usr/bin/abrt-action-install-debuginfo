@@ -1,0 +1,236 @@
+#! /usr/bin/python -u
+# -*- coding: utf-8 -*-
+# WARNING: python -u means unbuffered I/O without it the messages are
+# passed to the parent asynchronously which looks bad in clients.
+
+PROGNAME = "abrt-action-install-debuginfo"
+
+import sys
+import os
+import errno
+import getopt
+import reportclient
+from subprocess import Popen, PIPE
+from reportclient import verbose, log, log1, log2, set_verbosity, error_msg_and_die, error_msg
+import time
+from reportclient.debuginfo import DebugInfoDownload, filter_installed_debuginfos, build_ids_to_path, clean_up
+import problem
+
+# everything was ok
+RETURN_OK = 0
+# serious problem, should be logged somewhere
+RETURN_FAILURE = 2
+
+
+GETTEXT_PROGNAME = "abrt"
+import locale
+import gettext
+
+_ = lambda x: gettext.lgettext(x)
+
+def init_gettext():
+    try:
+        locale.setlocale(locale.LC_ALL, "")
+    except locale.Error:
+        os.environ['LC_ALL'] = 'C'
+        locale.setlocale(locale.LC_ALL, "")
+    # Defeat "AttributeError: 'module' object has no attribute 'nl_langinfo'"
+    try:
+        gettext.bind_textdomain_codeset(GETTEXT_PROGNAME, locale.nl_langinfo(locale.CODESET))
+    except AttributeError:
+        pass
+    gettext.bindtextdomain(GETTEXT_PROGNAME, '/usr/share/locale')
+    gettext.textdomain(GETTEXT_PROGNAME)
+
+def sigterm_handler(signum, frame):
+    clean_up()
+    exit(RETURN_OK)
+
+def sigint_handler(signum, frame):
+    clean_up()
+    print "\n", _("Exiting on user command")
+    sys.stdout.flush()
+    # ??! without "sys.", I am getting segv!
+    sys.exit(RETURN_OK)
+
+import signal
+
+if __name__ == "__main__":
+    # abrt-server can send SIGTERM to abort the download
+    signal.signal(signal.SIGTERM, sigterm_handler)
+    # ctrl-c
+    signal.signal(signal.SIGINT, sigint_handler)
+    fbuild_ids = "build_ids"
+    cachedirs = []
+    size_mb = 4096
+    tmpdir = None
+    keeprpms = False
+    noninteractive = False
+    b_ids = []
+    exact_fls = False
+    missing = None
+    repo_pattern = "*debug*"
+
+    # localization
+    init_gettext()
+
+    ABRT_VERBOSE = os.getenv("ABRT_VERBOSE")
+    if (ABRT_VERBOSE):
+        try:
+            verbose = int(ABRT_VERBOSE)
+        except:
+            pass
+
+    PROGNAME = os.path.basename(sys.argv[0])
+    # ____________________________________________________________________________________ 7
+    # ______01234567890123456789012345678901234567890123456789012345678901234567890123456789
+    help_text = _(
+            "Usage: %s [-vy] [--ids=BUILD_IDS_FILE]\n"
+            "       [--tmpdir=TMPDIR] [--cache=CACHEDIR[:DEBUGINFODIR1:DEBUGINFODIR2...]] [--size_mb=SIZE]\n"
+            "       [-e, --exact=PATH[:PATH]...]\n"
+            "\n"
+            "Installs debuginfos for all build-ids listed in BUILD_IDS_FILE\n"
+            "to CACHEDIR, using TMPDIR as temporary staging area.\n"
+            "Old files in CACHEDIR are deleted until it is smaller than SIZE.\n"
+            "\n"
+            "    -v          Be verbose\n"
+            "    -y          Noninteractive, assume 'Yes' to all questions\n"
+            "    --ids       Default: build_ids\n"
+            "    --tmpdir    Default: /var/tmp/abrt-tmp-debuginfo-RANDOM_SUFFIX\n"
+            "    --cache     Default: /var/cache/abrt-di\n"
+            "    --size_mb   Default: 4096\n"
+            "    -e,--exact  Download only specified files\n"
+            "    --repo      Pattern to use when searching for repos.\n"
+            "                Default: *debug*\n"
+            # --keeprpms is not documented yet because it's a NOP so far
+    ) % PROGNAME
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "vyhe",
+                ["help", "ids=", "cache=", "size_mb=", "tmpdir=", "keeprpms",
+                 "exact=", "repo="])
+    except getopt.GetoptError, err:
+        print str(err) # prints something like "option -a not recognized"
+        exit(RETURN_FAILURE)
+
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print help_text
+            exit(0)
+        elif opt == "-v":
+            verbose += 1
+        elif opt == "-y":
+            noninteractive = True
+        elif opt == "--ids":
+            fbuild_ids = arg
+        elif opt == "--cache":
+            cachedirs = arg.split(':')
+        elif opt == "--size_mb":
+            try:
+                size_mb = int(arg)
+            except:
+                pass
+        elif opt == "--tmpdir":
+            tmpdir = arg
+        elif opt == "--keeprpms":
+            keeprpms = True
+        # --exact takes precendece over --ids
+        elif opt in ("-e", "--exact"):
+            missing = arg.split(':')
+            exact_fls = True
+        elif opt == "--repo":
+            repo_pattern = arg
+
+    set_verbosity(verbose)
+
+    if not cachedirs:
+        try:
+            conf = problem.load_plugin_conf_file("CCpp.conf")
+        except OSError as ex:
+            print str(ex)
+        else:
+            cachedirs = conf.get("DebuginfoLocation", None)
+
+        if not cachedirs:
+            cachedirs = ["/var/cache/abrt-di"]
+    if not tmpdir:
+        # security people prefer temp subdirs in app's private dir, like /var/run/abrt
+        # and we switched to /tmp but Fedora feature tmp-on-tmpfs appeared, hence we must
+        # not use /tmp for potential big data anymore
+        tmpdir = "/var/tmp/abrt-tmp-debuginfo-%s.%u" % (time.strftime("%Y-%m-%d-%H:%M:%S"), os.getpid())
+
+
+    if missing == None:
+        fin = sys.stdin
+        if fbuild_ids != "-":
+            try:
+                fin = open(fbuild_ids, "r")
+            except IOError, ex:
+                error_msg_and_die(_("Can't open {0}: {1}").format(fbuild_ids, ex))
+        for line in fin.readlines():
+            b_ids.append(line.strip('\n'))
+
+        if not b_ids:
+            exit(RETURN_FAILURE)
+
+        # Delete oldest/biggest files from cachedir.
+        # (Note that we need to do it before we check for missing debuginfos)
+        #
+        # We can do it as a separate step in report_event.conf, but this
+        # would require setuid'ing abrt-action-trim-files to abrt:abrt.
+        # Since we (via abrt-action-install-debuginfo-to-abrt-cache)
+        # are already running setuid,
+        # it makes sense to NOT setuid abrt-action-trim-files too,
+        # but instead run it as our child:
+        sys.stdout.flush()
+        try:
+            pid = os.fork()
+            if pid == 0:
+                argv = ["abrt-action-trim-files", "-f", "%um:%s" % (size_mb, cachedirs[0]), "--"]
+                argv.extend(build_ids_to_path(cachedirs[0], b_ids))
+                log2("abrt-action-trim-files %s", argv);
+                os.execvp("abrt-action-trim-files", argv);
+                error_msg_and_die("Can't execute '%s'", "abrt-action-trim-files");
+            if pid > 0:
+                os.waitpid(pid, 0);
+        except Exception, e:
+            error_msg("Can't execute abrt-action-trim-files: %s", e);
+
+        missing = filter_installed_debuginfos(b_ids, cachedirs)
+
+    exact_file_missing = False
+    result = RETURN_OK
+    if missing:
+        log2("%s", missing)
+        if len(b_ids) > 0:
+            print _("Coredump references {0} debuginfo files, {1} of them are not installed").format(len(b_ids), len(missing))
+        else:
+            # Only --exact FILE[:FILE2]... was specified
+            print _("{0} of debuginfo files are not installed").format(len(missing))
+
+        # TODO: should we pass keep_rpms=keeprpms to DebugInfoDownload here??
+        downloader = DebugInfoDownload(cache=cachedirs[0], tmp=tmpdir,
+                                       noninteractive=noninteractive,
+                                       repo_pattern=repo_pattern)
+        try:
+            result = downloader.download(missing, download_exact_files=exact_fls)
+        except Exception, ex:
+            error_msg_and_die("Can't download debuginfos: %s", ex)
+
+        if exact_fls:
+            for bid in missing:
+                if not os.path.isfile(bid):
+                    print _("Missing requested file: {0}").format(bid)
+                    exact_file_missing = True
+
+        missing = filter_installed_debuginfos(b_ids, cachedirs)
+        for bid in missing:
+            print _("Missing debuginfo file: {0}").format(bid)
+
+    if not missing and not exact_file_missing:
+        print _("All debuginfo files are available")
+
+    if exact_file_missing:
+        result = RETURN_FAILURE
+
+    exit(result)

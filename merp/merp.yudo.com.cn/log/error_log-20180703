@@ -1,0 +1,1 @@
+[Tue Jul 03 19:57:35.795867 2018] [:error] [pid 12055] [client 117.136.39.239:9848] PHP Notice:  Trying to get property of non-object in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/Menu/controllers/Menu.php on line 102, referer: http://merp.yudo.com.cn:8183/Menu/Menu?formKey=M20180703T195447997

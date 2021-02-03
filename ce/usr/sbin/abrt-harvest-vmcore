@@ -1,0 +1,273 @@
+#!/usr/bin/python
+"""
+ This script is meant to be run once at system startup after abrtd is up
+ and running. It moves all vmcore directories in kdump's dump directory
+ (which are presumably created by kdump) to abrtd spool directory.
+
+ The goal is to let abrtd notice and process them as new problem data dirs.
+"""
+
+import os
+import sys
+import shutil
+import time
+import hashlib
+import augeas
+from subprocess import Popen, PIPE
+
+import problem
+import report
+
+
+def errx(message, code=1):
+    sys.stderr.write(message)
+    sys.stderr.write("\n")
+    sys.stderr.flush()
+    sys.exit(code)
+
+def get_augeas(module, file_path):
+    """
+    A function for efficient configuration of Augeas.
+    Augeas modules are placed in /usr/share/augeas/lenses/dist
+    """
+
+    aug_obj = augeas.Augeas(flags=augeas.Augeas.NO_MODL_AUTOLOAD)
+    aug_obj.set("/augeas/load/{0}/lens".format(module), "{0}.lns".format(module))
+    aug_obj.set("/augeas/load/{0}/incl".format(module), file_path)
+    aug_obj.load()
+    return aug_obj
+
+def get_mount_point(part_id):
+    """
+    A function used to look up a mount point of the provided identifier
+    using 'findmnt' system utility.
+
+    part_id - device node, label or uuid
+    """
+
+    try:
+        proc = Popen(["/usr/bin/findmnt", "--noheadings", "--first-only", "--raw",
+                     "--evaluate", "--output", "TARGET", part_id],
+                     stdout=PIPE, stderr=PIPE)
+        out, err = proc.communicate()
+        if err:
+            errx("Error finding mountpoint of '{0}': {1}"
+                 .format(devpath, err))
+
+        result = out.strip()
+        if proc.returncode != 0 or not result:
+            errx("Cannot find mountpoint of '{0}'".format(part_id))
+
+        return result
+    except OSError as ex:
+        errx("Cannot run 'findmnt': {1}".format(str(ex)))
+
+def parse_kdump():
+    """
+    This function parses /etc/kdump.conf to get a path to kdump's
+    dump directory.
+    """
+    # default
+    dump_path = '/var/crash'
+
+    # filesystem types that can be used by kdump for dumping
+    fs_types = ['ext4', 'ext3', 'ext2', 'minix', 'btrfs', 'xfs']
+
+    if not os.access('/etc/kdump.conf', os.R_OK):
+        sys.stderr.write("/etc/kdump.conf not readable, using "
+                         "default path '%s'\n" % dump_path)
+        return dump_path
+
+    aug_obj = get_augeas("Kdump", "/etc/kdump.conf")
+    # check for path variable in kdump.conf
+    kdump_path = aug_obj.get("/files/etc/kdump.conf/path")
+    if kdump_path:
+        dump_path = kdump_path
+
+    # default
+    partition = None
+    # first uncommented fs_type partition instruction
+    for fs_type in fs_types:
+        result = aug_obj.get("/files/etc/kdump.conf/" + fs_type)
+        if result:
+            partition = result
+            break
+
+    if partition:
+        if os.path.isabs(dump_path):
+            # path is absolute, change it to relative
+            dump_path = dump_path.lstrip("/")
+        mount_point = get_mount_point(partition)
+        path = os.path.join(mount_point, dump_path)
+    else:
+        path = dump_path
+
+    # full path to the dump directory
+    return path
+
+
+def create_abrtd_info(dest, uuid):
+    """
+    A simple function to write important information for the abrt daemon into
+    the vmcore directory to let abrtd know what kind of problem it is.
+
+    dest - path to the vmcore directory
+    uuid - unique indentifier of the vmcore
+    """
+
+    dd = report.dd_create(dest, 0)
+    if dd is None:
+        return None
+
+    dd.create_basic_files(0)
+    dd.save_text('analyzer', 'vmcore')
+    dd.save_text('type', 'vmcore')
+    dd.save_text('component', 'kernel')
+    dd.save_text('uuid', uuid)
+    return dd
+
+
+def delete_and_close(dd, dd_dirname):
+    """
+    Deletes the given dump directory and closes it.
+
+    dd - dump directory object
+    dd_dirname - full path to dump directory
+    """
+    if not dd.delete() == 0:
+        sys.stderr.write("Unable to delete '%s'\n" % (dd_dirname))
+        return
+
+    dd.close()
+
+
+def harvest_vmcore():
+    """
+    This function moves vmcore directories from kdump's dump dir
+    to abrt's dump dir and notifies abrt.
+
+    The script also creates additional files used to tell abrt what kind of
+    problem it is and creates an uuid from the vmcore using a sha1 hash
+    function.
+    """
+
+    dump_dir = parse_kdump()
+
+    if not os.access(dump_dir, os.R_OK):
+        sys.stderr.write("Dump directory '%s' not accessible. "
+                         "Exiting.\n" % dump_dir)
+        sys.exit(1)
+
+    # Wait for abrtd to start. Give it at least 1 second to initialize.
+    for i in xrange(10):
+        if i is 9:
+            sys.exit(1)
+        elif os.system('pidof abrtd >/dev/null'):
+            time.sleep(1)
+        else:
+            break
+
+    # Check abrt config files for copy/move settings and
+    try:
+        conf = problem.load_plugin_conf_file("vmcore.conf")
+    except OSError as ex:
+        sys.stderr.write(str(ex))
+        sys.exit(1)
+    else:
+        copyvmcore = conf.get("CopyVMcore", "no")
+
+    try:
+        conf = problem.load_conf_file("abrt.conf")
+    except OSError as ex:
+        sys.stderr.write(str(ex))
+        sys.exit(1)
+    else:
+        abrtdumpdir = conf.get("DumpLocation", "/var/spool/abrt")
+
+    try:
+        filelist = os.listdir(dump_dir)
+    except OSError:
+        sys.stderr.write("Dump directory '%s' not accessible. "
+                         "Exiting.\n" % dump_dir)
+        sys.exit(1)
+
+    # Go through all directories in core dump directory
+    for cfile in filelist:
+        f_full = os.path.join(dump_dir, cfile)
+        if not os.path.isdir(f_full):
+            continue
+
+        try:
+            vmcoredirfilelist = os.listdir(f_full)
+        except OSError as ex:
+            sys.stderr.write("VMCore dir '%s' not accessible.\n" % f_full)
+            continue
+        else:
+             if all(("vmcore" != ff
+                     for ff in vmcoredirfilelist
+                        if os.path.isfile(os.path.join(f_full, ff)))):
+                sys.stderr.write(
+                    "VMCore dir '%s' doesn't contain 'vmcore' file.\n" % f_full)
+                continue
+
+        # We use .new suffix - we must make sure abrtd doesn't try
+        # to process partially-copied directory.
+        destdir = os.path.join(abrtdumpdir, ('vmcore-' + cfile))
+        destdirnew = destdir + '.new'
+        # Did we already copy it last time we booted?
+        if os.path.isdir(destdir):
+            continue
+        if os.path.isdir(destdirnew):
+            continue
+
+        # TODO: need to generate *real* UUID,
+        # one which has a real chance of catching dups!
+        # This one generates different hashes even for similar cores:
+        hashobj = hashlib.sha1()
+        # Iterate over the file a line at a time in order to not load the whole
+        # vmcore file
+        with open(os.path.join(f_full, 'vmcore'), 'r') as corefile:
+            for line in corefile:
+                hashobj.update(line)
+
+        dd = create_abrtd_info(destdirnew, hashobj.hexdigest())
+        if dd is None:
+            sys.stderr.write("Unable to create problem directory info")
+            continue
+
+        # Copy/move vmcore directory to abrt spool dir.
+        for name in os.listdir(f_full):
+            full_name = os.path.join(f_full, name)
+
+            # Skip sub-directories, abrt ignores them in its processing anyway
+            if not os.path.isfile(full_name):
+                continue
+
+            try:
+                if not dd.copy_file(name, full_name) == 0:
+                    raise OSError
+            except (OSError, shutil.Error):
+                sys.stderr.write("Unable to copy '%s' to '%s'. Skipping\n"
+                                 % (full_name, destdirnew))
+                delete_and_close(dd)
+                continue
+
+        # Get rid of the .new suffix
+        if not dd.rename(destdir) == 0:
+            sys.stderr.write("Unable to rename '%s' to '%s'. Skipping\n" % (destdirnew, destdir))
+            delete_and_close(dd)
+            continue
+
+        dd.close()
+
+        if copyvmcore == 'no':
+            try:
+                shutil.rmtree(f_full)
+            except OSError:
+                sys.stderr.write("Unable to delete '%s'. Ignoring\n" % f_full)
+
+        problem.notify_new_path(destdir)
+
+
+if __name__ == '__main__':
+    harvest_vmcore()

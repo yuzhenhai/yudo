@@ -1,0 +1,68 @@
+{ #header }
+<!-- nav -->
+
+<div id="slide_panel" style="padding-top:50px;">
+
+    <!-- contents -->
+    <div class="sub_contents">
+
+        <!-- 검색 -->
+        <div class="search_area">
+            <table class="search_table">
+                <colgroup>
+                    <col width="70px;">
+                </colgroup>
+                <tr>
+                    <th>时间</th>
+                    <td colspan="3">
+                        <input type="text" id="base_date" class="form-control search_input text-center" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <th>语言</th>
+                    <td>
+                        <!--<input id="lang_code" name="lang_code"-->
+                        <!--jlamp-autobinding-->
+                        <!--bizcomponentid="L_SYS008"-->
+                        <!--jlamp-ab-bgcolor="#fffee5;"/>-->
+                        <select id="lang_code" name="lang_code" style="width: 100%">
+                            <option value="KOR">Korean</option>
+                            <option value="ENG">English</option>
+                            <option value="JPN">Japanese</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="search_bn_area">
+                <input class="bn_normal_100" id="btn_search" type="button" value="검색">
+            </div>
+        </div>
+
+        <!-- 타이틀 및 검색  mt_10-->
+        <div class="sub_title">미진행실적</div>
+        <div class="table-responsive" style="overflow-x: auto; height:300px;">
+            <table class="basic_table">
+                <thead>
+                <tr>
+                    <th colspan="2">구분</th>
+                    <th>미출고금액계</th>
+                    <th>계산서미발행금액</th>
+                    <th>미수금금액</th>
+                    <th>생산미출고금액</th>
+                    <th>생산미접수금액</th>
+                    <th>생산미출도금액</th>
+                </tr>
+                </thead>
+                <tbody id="list_html">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sub_title mt_10">미진행실적 차트</div>
+        <div id="chart">
+            <img style="margin-top:40px;" src="/image/no_chart.png">
+        </div>
+    </div>
+</div>
+
+{ #footer }

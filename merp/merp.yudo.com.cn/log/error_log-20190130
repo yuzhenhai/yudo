@@ -1,0 +1,1 @@
+[Wed Jan 30 17:09:47.645847 2019] [:error] [pid 4690] [client 114.219.21.160:6215] PHP Fatal error:  Call to undefined method Worker10_model::getSalesPlanByDeptId() in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2300/controllers/WEI_2300.php on line 667, referer: http://merp.yudo.com.cn:8183/WEI_2300/WEI_2300?formKey=Menu&menuSelection=asm

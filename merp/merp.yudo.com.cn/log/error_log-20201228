@@ -1,0 +1,2 @@
+[Mon Dec 28 09:56:24.303923 2020] [:error] [pid 28850] [client 192.168.253.2:42193] PHP Notice:  Undefined property: DB::$conn_id in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Model.php on line 0
+[Mon Dec 28 09:56:24.304057 2020] [:error] [pid 28850] [client 192.168.253.2:42193] PHP Fatal error:  Call to a member function prepare() on null in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Model.php on line 0

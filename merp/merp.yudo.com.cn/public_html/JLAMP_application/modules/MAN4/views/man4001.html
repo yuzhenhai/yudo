@@ -1,0 +1,56 @@
+{ #header }
+<div id="slide_panel" style="padding-top: 50px;">
+    <div class="sub_contents">
+        <!-- Search Area -->
+        <div class="search_area">
+            <table class="search_table">
+                <colgroup>
+                    <col width="70px;">
+                </colgroup>
+                <tr>
+                    <th>Time</th>
+                    <td colspan="3">
+                        <input type="text" id="base_date" class="search_input text-center" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Language</th>
+                    <td>
+                        <select id="lang_code" name="lang_code" style="width: 100%">
+                            <option value="KOR">Korean</option>
+                            <option value="ENG">English</option>
+                            <option value="CHINA">Chinese</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="search_bn_area">
+                <input class="bn_normal_100" id="btn_search" type="button" value="Search">
+            </div>
+        </div>
+
+        <div class="sub_title">Table</div>
+        <div class="table-responsive" style="overflow-x: auto; height:300px;">
+            <table class="basic_table">
+                <thead>
+                <tr>
+                    <th colspan="2">TH1</th>
+                    <th>TH2</th>
+                    <th>TH3</th>
+                    <th>TH4</th>
+                    <th>TH5</th>
+                    <th>TH6</th>
+                    <th>TH7</th>
+                </tr>
+                </thead>
+                <tbody id="list_html">
+                </tbody>
+            </table>
+        </div>
+        <div class="sub_title mt_10">Part</div>
+        <div id="chart">
+            <img style="margin-top:40px;" src="/image/no_chart.png">
+        </div>
+    </div>
+</div>
+{ #footer }

@@ -1,0 +1,1 @@
+[Fri Apr 27 09:51:41.935830 2018] [:error] [pid 23605] [client 117.185.117.60:60301] PHP Fatal error:  Class 'Check_account' not found in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/Myclass/controllers/Myclass.php on line 3

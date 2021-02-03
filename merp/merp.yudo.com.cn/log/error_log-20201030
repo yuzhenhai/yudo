@@ -1,0 +1,1 @@
+[Fri Oct 30 15:47:39.749277 2020] [:error] [pid 10887] [client 117.136.68.106:7920] PHP Notice:  Undefined index: isAsHandle in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2100/controllers/WEI_2100.php on line 1073, referer: http://merp.yudo.com.cn:8183/WEI_2100/WEI_2100?formKey=Menu&menuSelection=asm

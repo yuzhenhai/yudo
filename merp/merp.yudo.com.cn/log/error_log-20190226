@@ -1,0 +1,2 @@
+[Tue Feb 26 18:56:05.689288 2019] [:error] [pid 25560] [client 58.217.192.54:36172] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Controller.php on line 0
+[Tue Feb 26 18:56:17.222040 2019] [:error] [pid 25855] [client 58.217.192.54:36966] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Controller.php on line 0

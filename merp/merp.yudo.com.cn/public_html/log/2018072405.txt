@@ -1,0 +1,1 @@
+[05:26:31 INFO]:ASReceipt Database image is null

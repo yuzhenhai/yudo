@@ -1,0 +1,2 @@
+101.226.102.237 - - [02/May/2018:09:09:50 +0800] "GET /Myclass/Myclass HTTP/1.1" 500 490 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"
+180.117.36.18 - - [02/May/2018:15:56:37 +0800] "GET /favicon.ico HTTP/1.1" 404 1133 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"

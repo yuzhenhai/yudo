@@ -1,0 +1,124 @@
+{
+	"site": {
+		"title": "J.LAMP5 YUDO",
+		"domain": "merp.yudo.com.cn",
+		"env": "development",
+		"lang": "korean",
+		"installUrl": "",
+		"interface": "ens160"
+	},
+	"service": {
+		"domain": "merp.yudo.com.cn",
+		"port":"8183",
+		"dataPath": "",
+		"langID": "CHN"
+	},
+	"ftp" : {
+                "addr": "192.168.158.240",
+                "port": "21",
+                "username": "jpapp",
+                "password": "61L4g2sj",
+                "localFile": "/home/merp.yudo.com.cn/public_html"
+        },
+	"database": {
+		"JLAMPBiz": {
+			"name": "YSErp",
+			"type": "mssql",
+			"host": "192.168.158.218",
+			"port": "1433",
+			"username": "yudo",
+			"password": "yudo",
+			"charset": "utf8",
+			"collat": "utf8_general_ci"
+		},
+		"JLAMPSZBiz": {
+                        "name": "YSErp",
+                        "type": "mssql",
+                        "host": "192.168.158.218",
+                        "port": "1433",
+                        "username": "yudo",
+                        "password": "yudo",
+                        "charset": "utf8",
+                        "collat": "utf8_general_ci"
+                },
+		"JLAMPGDBiz": {
+			"name": "YUTDERP",
+			"type": "mssql",
+			"host": "192.168.1.20",
+			"port": "1433",
+			"username": "yudo",
+			"password": "yudo",
+			"charset": "utf8",
+			"collat": "utf8_general_ci"
+		},
+		"JLAMPQDBiz": {
+			"name": "YQDERP",
+			"type": "mssql",
+			"host": "10.135.6.10",
+			"port": "1433",
+			"username": "yudo",
+			"password": "yudo",
+			"charset": "utf8",
+			"collat": "utf8_general_ci"
+		},
+		"JLAMPHSBiz": {
+                        "name": "Hans",
+                        "type": "mssql",
+                        "host": "192.168.158.218",
+                        "port": "1433",
+                        "username": "yudo",
+                        "password": "yudo",
+                        "charset": "utf8",
+                        "collat": "utf8_general_ci"
+                },
+                "JLAMPXRBiz": {
+                        "name": "YSinoERP",
+                        "type": "mssql",
+                        "host": "192.168.2.19",
+                        "port": "1433",
+                        "username": "yudo",
+                        "password": "yudo",
+                        "charset": "utf8",
+                        "collat": "utf8_general_ci"
+                },
+		"JLAMPYBDBiz": {
+                        "name": "UFDATA_101_2018",
+                        "type": "mssql",
+                        "host": "192.168.1.29",
+                        "port": "1433",
+                        "username": "sa",
+                        "password": "Sa12345678",
+                        "charset": "utf8",
+                        "collat": "utf8_general_ci"
+                },
+		"JLAMPtestBiz": {
+			"name": "YSErp",
+			"type": "mssql",
+			"host": "192.168.23.80",
+			"port": "1433",
+			"username": "yudo",
+			"password": "yudo",
+			"charset": "utf8",
+			"collat": "utf8_general_ci"
+		},
+		"JLAMPTool": {
+			"name": "YSErpTool",
+			"type": "mssql",
+			"host": "192.168.158.218",
+			"port": "1433",
+			"username": "yudo",
+			"password": "yudo",
+			"charset": "utf8",
+			"collat": "utf8_general_ci"
+		}
+	},
+	"cookie": {
+		"expire": "0",
+		"interval": ""
+	},
+	"system": {
+		"owner": "",
+		"isKendoCulture": false,
+		"isUseBrowser": false
+	}
+}

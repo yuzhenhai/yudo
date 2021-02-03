@@ -1,0 +1,1 @@
+[Wed May 22 14:35:54.743850 2019] [:error] [pid 27759] [client 117.136.41.86:57988] PHP Fatal error:  Call to undefined method Multi_db::mf_sp() in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_1000/controllers/WEI_1000.php on line 105, referer: http://merp.yudo.com.cn:8183/WEI_1000/WEI_1000?formKey=Menu&menuSelection=sm

@@ -1,0 +1,703 @@
+/* Common */
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: none;
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    display: table;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-family: Helvetica, AppleGothic, 돋움, Dotum;
+    /*font: normal 12px NanumGothic;*/
+    color: #727171
+}
+a, button
+{
+    -ms-touch-action: manipulation;    /* IE10  */
+    touch-action: manipulation;        /* IE11+ */
+}
+img, fieldset {
+    border: 0
+}
+
+ul, ol, li, dl {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+hr {
+    display: none;
+}
+
+em, i, address {
+    font-style: normal;
+    font-weight: normal;
+}
+
+legend, caption {
+    display: none;
+    clear: both;
+}
+
+input, textarea, select, button, table {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+section, nav, article, aside, hgroup, header, footer {
+    display: block
+}
+
+textarea, input {
+    -webkit-border-radius: 1px;
+    -webkit-apprearance: none;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.tc {
+    text-align: center;
+}
+
+/* Line */
+.lh_10 {
+    line-height: 20px;
+    float: left;
+    margin-right: 10px;
+}
+
+.lh_20 {
+    line-height: 20px;
+    float: left;
+}
+
+/* margin */
+.mt_5 {
+    margin-top: 5px;
+}
+
+.mt_10 {
+    margin-top: 10px;
+}
+
+/* 정렬 */
+.center {
+    text-align: center;
+}
+
+/* 폰트 */
+.green_txt {
+    font-weight: 500;
+    color: #80c341;
+}
+.multi-list-2{
+    height: 30px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    text-align: center;
+    position:absolute;
+    top:133px;
+    z-index: 3;
+    left: 0
+}
+.multi-list-3{
+    height: 30px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    text-align: center;
+    position:absolute;
+    top:159px;
+    z-index: 3;
+    left: 0
+}
+/* 버튼 */
+.bn_new {
+    width: 70px;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #80c341;
+    font-size: 13px;
+    font-weight: 500;
+    float: right;
+    border: 0;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+.bn_save {
+    width: 120px;
+    height: 34px;
+    text-align: center;
+    color: #fff;
+    background-color: #80c341;
+    border: 0;
+}
+
+.bn_delete {
+    width: 120px;
+    height: 34px;
+    text-align: center;
+    color: #fff;
+    background-color: #b5b6b6;
+    border: 0;
+}
+
+.bn_normal_50 {
+    width: 47%;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: #80c341;
+    border: 0;
+}
+
+.bn_normal_100 {
+    width: 94%;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: #292929;
+    border: 0;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.bn_cancel_50 {
+    width: 47%;
+    height: 30px;
+    text-align: center;
+    color: #727171;
+    background-color: #f0f0f0;
+    border: 0;
+}
+
+/* 메뉴 아이콘 */
+.toggle_icon_bn {
+    position: absolute;
+    z-index: 100;
+    top: 7px;
+    padding: 6px;
+    left: 10px;
+    width: 30px;
+}
+
+/* 로그아웃 */
+.top_logout {
+    position: absolute;
+    z-index: 100;
+    top: 9px;
+    right: 10px;
+    width: 30px;
+}
+
+@media screen and (max-width: 767px) {
+    /* top */
+    .top_header {
+        width: 100%;
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 6px;
+        color: #fff;
+        text-align: center;
+        height: 44px;
+        background-color: #292929;
+        background-size: cover;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    /* top */
+    .top_header {
+        width: 100%;
+        font-size: 20px;
+        font-weight: 400;
+        padding-top: 6px;
+        color: #fff;
+        text-align: center;
+        height: 44px;
+        background-color: #292929;
+        background-size: cover;
+    }
+}
+.leon{
+    display: none;
+}
+.long{
+    overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+}
+.find-window-bottom{
+    background: white;
+    text-align: left;
+    padding: 6px;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid #bababa;
+}
+/* 본문 */
+.sub_contents {
+    width: 100%;
+    /*height: 100%;*/
+    background-color: #fff;
+    float: left;
+}
+
+.sub_title {
+    width: 100%;
+    height: 36px;
+    background-color: #d5d5d5;
+    color: #fff;
+    text-align: left;
+    padding: 8px 0 0 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.sub_bottom_area {
+    width: 100%;
+}
+
+.sub_bottom_25 {
+    width: 25%;
+    float: left;
+}
+
+.sub_bottom_35 {
+    width: 35%;
+    float: left;
+    padding-left: 5px;
+}
+
+.sub_bottom_65 {
+    width: 65%;
+    float: left;
+}
+
+.sub_bottom_75 {
+    width: 75%;
+    float: left;
+    padding-left: 5px;
+}
+
+/* 테이블 */
+.basic_table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #e4e3e4;
+}
+
+.basic_table th {
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+    height: 30px;
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #e4e3e4;
+    border-left: 1px solid #e4e3e4;
+    background: #efeff0;
+    font-size: 12px;
+    font-weight: normal;
+    color: #727171;
+}
+
+.basic_table td {
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+    height: 30px;
+    padding: 2px 5px 2px 5px;
+    text-align: left;
+    border-bottom: 1px solid #e4e3e4;
+    border-left: 1px solid #e4e3e4;
+    /*font: normal 12px nanumgothic;*/
+    color: #727171;
+}
+.basic_table_div{
+    text-overflow: ellipsis;
+    display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+    -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+}
+
+.basic_table .green {
+    background-color: #80c341;
+    color: #fff;
+}
+
+.basic_table .orange {
+    background-color: #fbcc7e;
+    color: #fff;
+}
+
+.basic_table .sel_txt {
+    color: #ff0000 !important;
+}
+
+/* 하단 탭 */
+.foot_tab_area {
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    background-color: #f8f8f8;
+    padding: 7px 0 3px 0;
+    border-top: 1px solid #e4e3e4;
+    float: left;
+}
+
+.foot_tab_area li {
+    width: 20%;
+    float: left;
+    text-align: center;
+    line-height: 20px;
+}
+
+.foot_tab_area li a {
+    text-decoration: none;
+    color: #80c341;
+    display: block;
+}
+
+.foot_tab_area li a:hover {
+    text-decoration: none;
+}
+
+.foot_txt_disable {
+    color: #c9caca;
+}
+
+/* 검색 */
+.search_area {
+    width: 100%;
+}
+
+.search_table {
+    width: 100% !important;
+    border-collapse: collapse;
+    border-top: 1px solid #e4e3e4;
+}
+
+.search_table th {
+    height: 30px;
+    padding: 5px;
+    text-align: left;
+    /*border-bottom: 1px solid #e4e3e4;*/
+    /*font: normal 12px nanumgothic;*/
+    color: #727171;
+    text-align: right;
+}
+
+.search_table td {
+    height: 30px;
+    padding: 3px 5px 3px 5px;
+    text-align: left;
+    /*border-bottom: 1px solid #e4e3e4;*/
+    /*font: normal 12px nanumgothic;*/
+    color: #727171;
+}
+
+.search_bn_area {
+    width: 100%;
+    padding: 10px 0 10px 0;
+}
+
+/* input */
+.search_input {
+    width: 100%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #f0f0f0;
+}
+
+.search_input_20 {
+    width: 20%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+}
+
+.search_input_50 {
+    width: 50%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+}
+
+.search_input_80 {
+    width: 80%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+}
+
+.search_input_nessary {
+    width: 100%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #f0f0f0;
+    background-color: #fffee5;
+}
+
+.search_input_nessary_50 {
+    width: 50%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #fffee5;
+}
+
+.search_input_nessary_70 {
+    width: 70%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #fffee5;
+}
+
+.search_input_90_nessary {
+    width: 90%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #f0f0f0;
+    background-color: #fffee5;
+}
+
+.search_input_disable {
+    width: 100%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #f0f0f0;
+    background-color: #f0f0f0;
+}
+
+.search_input_disable_50 {
+    width: 50%;
+    height: 29px;
+    padding-left: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #f0f0f0;
+}
+
+.chart_area {
+    Width: 100%;
+    padding: 5px;
+}
+
+.grid-footer {
+    background-color: #fbcc7e !important;
+    color: #fff !important;
+    font: bold;
+}
+
+.setNoRecords {
+    width: 100%;
+    font: normal 13px nanumgothic;
+    color: #a5a4a4;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: bold;
+}
+
+/* 아이콘 */
+.icon_search {
+    background: url(/Image/icon_search.png);
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 18px;
+    margin-left: 14px;
+    margin-top: 3px;
+}
+
+.icon_search_disable {
+    background: url(/Image/icon_search_disable.png);
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin-right: 10px;
+    cursor: not-allowed;
+}
+
+.icon_reset {
+    background: url(/Image/icon_reset.png);
+    width: 24px;
+    height: 22px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.icon_reset_disable {
+    background: url(/Image/icon_search_disable.png);
+    width: 24px;
+    height: 22px;
+    float: right;
+    margin-right: 10px;
+    cursor: not-allowed;
+}
+
+.icon_plus {
+    background: url(/Image/icon_plus.png);
+    width: 28px;
+    height: 28px;
+    float: right;
+    margin-right: 5px;
+}
+
+.icon_minus {
+    background: url(/Image/icon_minus.png);
+    width: 28px;
+    height: 28px;
+    float: right;
+    margin-right: 10px;
+}
+
+.icon_reset {
+    background: url(/Image/icon_reset.png);
+    width: 24px;
+    height: 22px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.icon_reset_disable {
+    background: url(/Image/icon_search_disable.png);
+    width: 24px;
+    height: 22px;
+    float: right;
+    margin-right: 10px;
+    cursor: not-allowed;
+}
+
+/* 상세 테이블 */
+.view_table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #e4e3e4;
+    background-color: #f8f8f8;
+}
+
+.view_table th {
+    height: 30px;
+    padding: 5px;
+    text-align: left;
+    /*font: normal 12px nanumgothic;*/
+    color: #727171;
+    text-align: right;
+}
+
+.view_table td {
+    height: 30px;
+    padding: 3px 5px 3px 5px;
+    text-align: left;
+    /*font: normal 12px nanumgothic;*/
+    color: #727171;
+}
+
+.green_font {
+    color: #80c341;
+}
+
+.calendar_area {
+    width: 100%;
+    padding: 5px;
+}
+
+.datepicker_type {
+    width: 100%;
+    float: left;
+}
+
+.datepickerOpen.k-input {
+    text-indent: 20px;
+}
+
+.datepicker_type td {
+    padding: 0;
+    border: none;
+}
+
+.date_table {
+    margin: 3px;
+}
+
+.goal {
+    color: #727171;
+    text-align: right;
+    font-weight: bold;
+    background-color: #fef7ec;
+}
+
+/* bootstrap 재정의 */
+.k-dropdown {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.k-dropdown-wrap {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.k-dropdown-wrap.k-state-default {
+    border-color: #f0f0f0;
+}
+
+.k-dropdown-wrap.k-state-hover {
+    border-color: #f0f0f0;
+}
+
+.k-dropdown-wrap .k-input {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.k-dropdown-wrap .k-select {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.topLogo {
+	cursor: pointer
+}

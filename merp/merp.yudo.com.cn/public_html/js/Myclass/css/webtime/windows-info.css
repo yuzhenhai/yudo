@@ -1,0 +1,112 @@
+body,html{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 微软雅黑;
+    background-color: black;
+}
+a,button,span{
+    font-family: 微软雅黑;
+}
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
+.all{
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("/public/image/bg2.jpg");
+    background-repeat:no-repeat;
+    width: 100%;
+    height: 100%;
+    max-width: 1920px;
+    position: relative;
+}
+.top{
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.73);
+    color: #e0e0e0;
+}
+.top-center{
+    width: 65%;
+    height: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 1200px;
+}
+.top-center > img {
+    height: 100%;
+    float: left;
+}
+.top-menu{
+    padding-top: 25px;
+    height: 100%;
+    width: 100px;
+    margin-left: 15px;
+    font-size: 16px;
+    color: #8b8b8c;
+    float: right;
+}
+.top-menu:hover{
+    color: rgba(139, 139, 140, 0.55);
+}
+.menu{
+    height: 100%;
+    width: 80px;
+    background-color: #cf1333;
+    float: right;
+    text-align: center;
+}
+.menu > span {
+    font-size: 50px;
+    color: white;
+    line-height: 60px;
+}
+.mousemove{
+    transition: all 0.2s ease;
+    width: 100px;
+    height: 3px;
+    position: absolute;
+    background-color: #cf1333;
+    left: 0;
+    top:67px;
+}
+.mode{
+
+}
+.main{
+    width: 65%;
+    top: 70px;
+    height: 0;
+    overflow: hidden;
+    min-width: 1200px;
+    background-color: #4e4a4a;
+    position: absolute;
+}
+.main-top{
+    height: 80%;
+    padding: 20px;
+    background-color: white;
+}
+.trans-fadeout{
+    -webkit-transition:all 0.3s linear;
+    -moz-transition:all 0.3s linear;
+    -ms-transition:all 0.3s linear;
+    -o-transition:all 0.3s linear;
+    transition:all 0.3s linear;
+}
+.trans-fadeheight{
+    -webkit-transition: height 250ms ease-in;
+    -moz-transition: height 250ms ease-in;
+    -o-transition: height 250ms ease-in;
+    transition: height 250ms ease-in;
+}

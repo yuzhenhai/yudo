@@ -1,0 +1,1 @@
+[Thu Dec 19 14:34:25.191464 2019] [:error] [pid 9362] [client 114.219.22.239:41602] PHP Fatal error:  Call to undefined method Multi_downimage::downloadFile() in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2100/controllers/WEI_2100.php on line 350, referer: http://merp.yudo.com.cn:8183/WEI_2100/WEI_2100?formKey=Menu&menuSelection=asm

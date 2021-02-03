@@ -1,0 +1,2 @@
+66.102.6.149 - - [29/Jan/2018:07:57:12 +0800] "GET /?deviceType=mobile HTTP/1.1" 200 6271 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 Google Favicon"
+66.102.6.147 - - [29/Jan/2018:07:57:13 +0800] "GET /image/favicon.ico HTTP/1.1" 404 1133 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 Google Favicon"

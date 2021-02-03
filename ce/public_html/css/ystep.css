@@ -1,0 +1,152 @@
+/*common css*/
+.stepPage{
+  display:none;
+  height:100%;
+}
+.stepCont{
+  width:100%;
+}
+.ystep-container {
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Wenquanyi Micro Hei","Microsoft Yahei",Arial,sans-serif;
+
+  position: relative;
+  text-align: center;
+  color: #000;
+  /*padding: 20px;*/
+  width: 100%;
+  height: 100px;
+}
+.ystep-container ul {
+  list-style: none;
+}
+.ystep-container ul,.ystep-container li,.ystep-container p {
+  margin: 0;
+  padding: 0;
+}
+
+/*size css*/
+.ystep-lg {
+  /*width: 700px;*/
+  width:100%;
+  height: 100px;
+  font-size: 18px;
+  /*left: 15%;*/
+  line-height: .3;
+}
+
+/*large size css*/
+.ystep-lg .ystep-container-steps {
+  width: 100%;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  height: 20px;
+  cursor: pointer;
+  /*z-index: 10;*/
+}
+.ystep-lg li {
+  font-size: 14px;
+  float: left;
+  width: 25%;
+  height: 20px;
+  /*margin-right: 100px;*/
+}
+.step-text{
+  line-height: 20px;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+  top:-23px;
+}
+.step-coord{
+  margin: 0 auto;
+  background-color: #e4e4e4;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+.step-coord-none{
+  margin: 0 auto;
+  background-color: #83D4FF;
+  /* border: 1px solid #b0dcff; */
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+.step-coord-active{
+  margin: 0 auto;
+  background-color: #2196ff;
+  /* border: 1px solid #b0dcff; */
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+.ystep-lg .ystep-step-done {
+  position: relative;
+  text-align: center;
+  /*background-position: -278px -132px;*/
+}
+.ystep-lg .ystep-step-undone {
+  position: relative;
+  text-align: center;
+  /*background-position: -137px -131px;*/
+}
+.ystep-lg .ystep-step-active {
+  position: relative;
+  text-align: center;
+  /*background-position: -414px -131px;*/
+}
+.ystep-lg .ystep-progress {
+  width: 100%;
+  height: 10px;
+
+  /*position: absolute;*/
+  top: 30px;
+  left: 15px;
+  float: left;
+  margin:0 auto;
+  overflow: hidden;
+}
+.ystep-lg .ystep-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: #e4e4e4;
+  display: inline-block;
+  float: left;
+}
+.ystep-lg .ystep-progress-highlight {
+    height: 2px;
+	display: block;
+}
+
+/*!*blue css*!*/
+/*.ystep-blue .ystep-step-done {*/
+  /*background-image: url("/image/step/pointes_blue.png");*/
+  /*background-repeat: no-repeat;*/
+/*}*/
+/*.ystep-blue .ystep-step-undone {*/
+  /*background-image: url("/image/step/pointes_blue.png");*/
+  /*background-repeat: no-repeat;*/
+  /*color: #9c9a9b;*/
+/*}*/
+/*.ystep-blue .ystep-step-active {*/
+  /*background-image: url("/image/step/pointes_blue.png");*/
+  /*background-repeat: no-repeat;*/
+  /*color: #3276b1;*/
+/*}*/
+.ystep-blue .ystep-progress-highlight {
+  background: #2196ff;
+}
+/*按钮样式*/
+.ystep {
+  padding: 20px;
+  /*min-width: 1114px;*/
+}
+.step-button{
+  position: relative;
+  /*top: -85px;*/
+}
+.step-button button{
+  margin: 15px;
+}

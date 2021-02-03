@@ -1,0 +1,5 @@
+[Wed Oct 21 12:01:09.367257 2020] [:error] [pid 2929] [client 45.32.83.19:34554] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/views/errors/html/error_404.php on line 62
+[Wed Oct 21 12:01:14.926992 2020] [:error] [pid 3371] [client 45.32.83.19:34968] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/views/errors/html/error_404.php on line 62
+[Wed Oct 21 12:01:21.002595 2020] [:error] [pid 2903] [client 45.32.83.19:35164] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Controller.php on line 0
+[Wed Oct 21 12:01:21.412743 2020] [:error] [pid 3382] [client 45.32.83.19:35226] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Controller.php on line 0
+[Wed Oct 21 12:01:32.243308 2020] [:error] [pid 3390] [client 45.32.83.19:35440] PHP Notice:  Undefined index: HTTP_HOST in /home/merp.yudo.com.cn/public_html/JLAMP_application/core/JLAMP_Controller.php on line 0

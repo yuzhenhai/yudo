@@ -1,0 +1,74 @@
+<div v-show="showPopOrder"  style="z-index: 2;" class="yudo-window">
+    <div class="header-ios">
+        <div class="header-body">
+            <div class="header-left-btn" v-on:click="hidePopOrder()" >
+                <div class="left-icon icon-back-2"></div>
+            </div>
+            <div class="header-center-btn" >$((lang.queryOrder))</div>
+            <div class="header-right-btn">
+                <div class="right-icon icon-extend"></div>
+            </div>
+        </div>
+    </div>
+    <div class="center-ios">
+        <div class="search_area" style="position: absolute;top: 50px;border-bottom: 1px solid #e7e7e7">
+            <table class="search_table" style="width: 100%;height: 81px;padding-top: 10px">
+                <tr>
+                    <th>$((lang.orderNo))</th>
+                    <td colspan="1">
+                        <input type="text"  name="fastclick" class="multi-find-windows search_input" v-model='popOrderNo'>
+                    </td>
+                    <td>
+                        <img src="/image/qrcode.png" v-on:click="qrcode()" width="29">
+                    </td>
+                    <td>
+                        <button class="button-2000" v-on:click="getOrder()" style="font-size:15px">$((lang.search))</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>$((lang.custNm))</th>
+                    <td colspan="2">
+                        <input type="text"  name="fastclick" class="multi-find-windows search_input" v-model='popOrderCustNm'>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="mui_pushorder" class="info-minute scroll" style="top:132px;">
+            <div class="minute-project">
+                <div class="minute-list" style="border-bottom: 5px solid #f9f9f9;" v-for="(item,index) in orderlist" v-on:click="set_order(index)">
+                    <div class="minute-body" style="height: 95px">
+                        <div class="tr">
+                            <div class="title">$((lang.orderNo)):$((item.OrderNo))</div>
+                        </div>
+                        <div class="tr">
+                            <div class="len-10 long">$((lang.custNm)):$((item.custname))</div>
+                        </div>
+                        <div class="tr">
+                            <div class="len-5 long left-text ">$((lang.orderDate)):<span>$((item.OrderDate.fixed(2)))</span></div>
+                            <div class="right-text">$((lang.empNm)):$((item.EmpNm))</div>
+                        </div>
+                        <div class="tr">
+                            <div class="len-5 long left-text ">$((langCode.delvDate)):<span>$((item.DelvDate.fixed(2)))</span></div>
+                            <div class="right-text">$((lang.deptNm)):$((item.DeptNm))</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-flow-more" v-show="loading">
+                <i class="layui-anim layui-anim-rotate layui-anim-loop layui-icon layui-icon-loading-1" style="font-size: 25px">
+                </i>
+                <div class="doc-icon-name">loading</div>
+            </div>
+            <div class="layui-flow-more" v-show="noData">$((lang.noData))</div>
+        </div>
+    </div>
+</div>
+<script>
+    var popOrderLang = {
+        queryOrder:'W2018041913332473096',//订单查询
+        search:'W2018020109095825029',//查询
+        orderNo:'W2018041913141737708',//订单号
+        custNm:'W2018041913362840092',//客户名称
+        noData:'W2018062810475725084',//没有更多了
+    }
+</script>

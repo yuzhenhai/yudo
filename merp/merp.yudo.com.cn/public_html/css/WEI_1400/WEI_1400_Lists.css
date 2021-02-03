@@ -1,0 +1,8 @@
+.basic_table th {
+     text-align: center;
+     white-space: nowrap;
+ }
+
+.basic_table td {
+    white-space: nowrap;
+}

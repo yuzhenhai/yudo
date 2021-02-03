@@ -1,0 +1,1 @@
+[Tue May 15 17:50:39.003931 2018] [:error] [pid 17466] [client 180.107.180.64:2256] PHP Notice:  Memcache::connect(): Server localhost (tcp 11211, udp 0) failed with: Connection refused (111) in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2000/controllers/WEI_2000.php on line 69, referer: http://merp.yudo.com.cn:8183/WEI_2000/WEI_2000

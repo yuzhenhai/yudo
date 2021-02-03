@@ -1,0 +1,1 @@
+[Mon Apr 02 17:50:35.505800 2018] [:error] [pid 14663] [client 121.227.15.200:2332] PHP Fatal error:  Cannot use object of type stdClass as array in /home/merp.yudo.com.cn/public_html/JLAMP_application/modules/WEI_2000/controllers/WEI_2000.php on line 142

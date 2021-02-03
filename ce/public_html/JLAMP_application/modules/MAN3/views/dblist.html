@@ -1,0 +1,59 @@
+{ #header }
+
+<div id="slide_panel" style="padding-top:50px;">
+    <div>
+        <table>
+            <tr>
+                <th>Special</th>
+                <td>
+                    <input type="text" id="special">
+                </td>
+            </tr>
+            <tr>
+                <th>时间</th>
+                <td>
+                    <input type="text" id="base_date" class="search_input text-center" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th>语言</th>
+                <td>
+                    <!--<input id="lang_code" name="lang_code"
+                           jlamp-autobinding
+                           bizcomponentid="L_SYS008"
+                           jlamp-ab-bgcolor="#fffee5;"
+                           jlamp-ab-emptyrow="true"
+                    />-->
+                    <select id="lang_code" name="lang_code" style="width: 100%">
+                        <option value="KOR">Korean</option>
+                        <option value="ENG">English</option>
+                        <option value="JPN">Japanese</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <input type="button" id="button" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table id="list_html">
+            <tr>
+                <th>区分1</th>
+                <th>区分2</th>
+                <th>区分3</th>
+                <th>区分4</th>
+                <th>区分5</th>
+                <th>区分6</th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="chart">
+    </div>
+
+</div>
+
+{ #footer }

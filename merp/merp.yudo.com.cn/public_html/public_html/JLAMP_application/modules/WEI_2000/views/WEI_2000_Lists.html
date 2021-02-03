@@ -1,0 +1,582 @@
+{ #header }
+<!-- nav -->
+<style type="text/css">
+    #find-window{
+        animate-duration: 0.4s;
+    }
+    <style type="text/css">
+                          .mui-preview-image.mui-fullscreen {
+                              position: fixed;
+                              z-index: 20;
+                              background-color: #000;
+                          }
+    .mui-preview-header,
+    .mui-preview-footer {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: 10;
+    }
+    .mui-preview-header {
+        height: 44px;
+        top: 0;
+    }
+    .mui-preview-footer {
+        height: 50px;
+        bottom: 0px;
+    }
+    .mui-preview-header .mui-preview-indicator {
+        display: block;
+        line-height: 25px;
+        color: #fff;
+        text-align: center;
+        margin: 15px auto 4;
+        width: 70px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        font-size: 16px;
+    }
+    .mui-preview-image {
+        display: none;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .mui-preview-image.mui-preview-in {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+    .mui-preview-image.mui-preview-out {
+        background: none;
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut;
+    }
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+        display: none;
+    }
+    .mui-zoom-scroller {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        -webkit-backface-visibility: hidden;
+    }
+    .mui-zoom {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+    .mui-slider .mui-slider-group .mui-slider-item img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+        width: 100%;
+    }
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+        display: inline-table;
+    }
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .mui-preview-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+    .mui-preview-loading.mui-active {
+        display: block;
+    }
+    .mui-preview-loading .mui-spinner-white {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+        height: 50px;
+        width: 50px;
+    }
+    .mui-preview-image img.mui-transitioning {
+        -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    p img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<div id="slide_panel" style="padding-top:50px;">
+
+    <!-- contents -->
+    <div class="sub_contents">
+
+        <!-- 검색 -->
+        <div class="search_area">
+            <div class="sub_title" j-word-label="W2018041913130033733">订单信息
+            </div>
+            <!--<form action="/WEI_2000/WEI_2000/upload_photo" method="post" enctype="multipart/form-data">-->
+                <!--<input type="file" name="file"/>-->
+                <!--<input type="submit" value="Submit" />-->
+            <!--</form>-->
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th colspan="1" j-word-label="W2018041913141737708">订单号码</th>
+                    <td colspan="1" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="order_id" class="multi-input text-left" style="padding-right: 1px !important;">
+                    </td>
+                    <td>
+                        <a herf="javascript:void(0)" onclick="QRcode();"><img src="/image/qrcode.png" width="29"></a>
+                    </td>
+                    <td>
+                        <button id="order_list" class="button-2000" style="width: 70px" j-word-label="W2018041913332473096">订单列表</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913134073778">客户名称</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="cos_name" class="multi-input text-left" >
+                    </td>
+                </tr>
+
+                <tr>
+                    <th j-word-label="W2018041913163666042">订单日期</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="order_date" class="multi-input text-left" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913172613778">交货期</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="target_date" class="multi-input text-left" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th style="word-break: keep-all" j-word-label="W2018">System Type</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="System_Type" class="multi-input text-left" >
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018050318130693796">Gate数量</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input readonly="readonly" type="text" id="Gate_counts" class="multi-input text-left" >
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2009100611474841375">确定</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <div class="mui-switch" id="mySwitch">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+            <div class="sub_title" j-word-label="W2018041913191891089">组装信息</div>
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th style="color: #ff696d;" j-word-label="W2018041913194489381">组装人员</th>
+                    <td colspan="1" rowspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="mt_user" class="multi-input text-left" >
+                    </td>
+                    <td>
+                        <button id="user_list1" class="button-2000" j-word-label="W2018041913334637071">员工搜索</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th style="color: #ff696d;" j-word-label="W2018041913201356776">组装部门名称</th>
+                    <td colspan="3" rowspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="mt_group" class="multi-input text-left">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th j-word-label="W2018041913204897008">组装报告号码</th>
+                    <td colspan="3" rowspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="mt_id" class="multi-input text-left" >
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913212982391">组装报告日</th>
+                    <td colspan="3" rowspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="mt_talk_date" class="multi-input text-left" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913215236707">组装日</th>
+                    <td colspan="3" rowspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="mt_date" class="multi-input text-left" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+
+                <tr rowspan="2">
+                    <th j-word-label="W2018041913222052708">组装报告事项</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <textarea type="text" style="border-radius: 5px !important;height: 58px;width: 100%"  id="mt_something" class="text-left" ></textarea>
+                    </td>
+                </tr>
+                <tr rowspan="2">
+                    <th j-word-label="W2018041913225420017">备注</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <textarea type="text"  style="border-radius: 5px !important;height: 58px;width: 100%"  id="order_other" class="text-left" ></textarea>
+                    </td>
+                </tr>
+            </table>
+            <div class="sub_title" j-word-label="W2018041913270419743">组装报告信息</div>
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th j-word-label="W2018041913272754002">试模人员</th>
+                    <td colspan="1" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="test_user"  class="multi-input text-left" >
+                    </td>
+                    <td>
+                        <button id="user_list" class="button-2000" j-word-label="W2018041913334637071">员工搜索</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913274956066">试模部门</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="test_group" class="multi-input text-left" >
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913280506717">试模日期</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <input type="text" readonly="readonly" id="test_date" class="multi-input text-left" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018050411240256703">试模报告事项</th>
+                    <td colspan="3" style="padding-left:40px">
+                        <textarea type="text" style="border-radius: 5px !important;height: 58px;width: 100%"  id="test_something" class="text-left" ></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table width="100%">
+            <colgroup>
+                <col width="50%"/>
+                <col width="50%"/>
+            </colgroup>
+            <tr>
+                <td>
+                    <input style="margin-bottom: 10px;margin-top: 10px" class="bn_normal_100" id="btn_uploads" type="button" value="검색">
+                </td>
+                <td>
+                    <input style="margin-bottom: 10px;margin-top: 10px" class="bn_normal_100" id="btn_menu_lists" type="button" value="리스트">
+                </td>
+            </tr>
+        </table>
+
+        <div class="sub_title" j-word-label="W2018041913394065792">销售信息</div><button onclick="saleslist('open');" id="opensales" style="line-height: 15px;margin-top:-33px;margin-right: 5px;float: right;font-size: 25px;width:30px"  class="button-2000">+</button>
+        <div class="table-responsive" style="overflow: auto; height: 200px;">
+            <table class="basic_table">
+                <tr>
+                    <th width="20" >NO</th>
+                    <th style="text-align:center" j-word-label="W2018041913292308342">销售负责人</th>
+                    <th width="65" style="text-align:center" j-word-label="W2018041913295609366">设置</th>
+                </tr>
+                <tbody id="sell_table">
+                </tbody>
+            </table>
+        </div>
+        <div class="sub_title" j-word-label="W2018041913400053087">组装报告照片</div><button id="up_mt_photo" style="line-height: 15px;margin-top:-33px;margin-right: 5px;float: right;font-size: 25px;width:30px"  class="button-2000">+</button>
+            <div class="table-responsive" style="overflow: auto; height:200px;">
+                <table class="basic_table">
+                    <tr>
+                        <th width="20">NO</th>
+                        <th style="text-align:center" j-word-label="W2015012012571418044">照片</th>
+                        <th style="text-align:center" j-word-label="W2015012211300593761">文件名</th>
+                        <th width="65" style="text-align:center" j-word-label="W2018041913295609366">设置</th>
+                    </tr>
+                    <tbody id="mt_photo">
+                    </tbody>
+                </table>
+            </div>
+        <div class="sub_title" j-word-label="W2018041913403432396">试模报告照片</div><button id="up_test_photo" style="line-height: 15px;margin-top:-33px;margin-right: 5px;float: right;font-size: 25px;width:30px"  class="button-2000">+</button>
+        <div class="table-responsive" style="overflow: auto; height:200px;">
+            <table class="basic_table">
+                <tr>
+                    <th width="20">NO</th>
+                    <th style="text-align:center" j-word-label="W2015012012571418044">照片</th>
+                    <th style="text-align:center" j-word-label="W2015012211300593761">文件名</th>
+                    <th width="65" style="text-align:center" j-word-label="W2018041913295609366">设置</th>
+                </tr>
+                <tbody id="test_photo">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div id="find-window" style="z-index: 2;" class="find-window">
+    <div id="find-window-top" style="padding-top: 55px" class="find-window-top">
+        <span class="mui-icon mui-icon-back"></span>
+    </div>
+    <div class="sub_contents" style="height: 87%">
+        <div class="search_area" style="height: 100%">
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th j-word-label="W2018041913141737708">订单号码</th>
+                    <td colspan="1">
+                        <input type="text" id="this_order_date" class="multi-find-windows search_input">
+                    </td>
+                    <td>
+                        <button class="button-2000" id="find-order" j-word-label="W2018020109095825029" style="font-size:15px">查询</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th >客户名称</th>
+                    <td colspan="1">
+                        <input type="text" id="" class="multi-find-windows search_input" >
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913341497746">出口区分</th>
+                    <td colspan="3">
+                        <select id="gubun" name="gubun" style="height: 29px;padding: 0 0 0 5px;margin-bottom: 0;border: 1px solid #dbdbdb !important;width: 100%;border-radius: 3px;border: 1px solid #eeeeee;">
+                            <option j-word-label="W2018041913351532345" value="trust">内销</option>
+                            <option j-word-label="W2018041913355225052" value="untrust">外销</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="search_area" id="order-list" style="float: left;overflow-x: hidden;overflow-y: auto;height:87%">
+            <table style="height: 30px;white-space: nowrap;text-align: center;" class="basic_table">
+                <tr>
+                    <th j-word-label="W2018">NO</th>
+                </tr>
+                <tbody id="find-order-list">
+                </tbody>
+            </table>
+            </div>
+            <div class="search_area" id="order-list2" style="float: left;overflow-x: hidden;overflow-y: auto;height:87%">
+                <table style="height: 30px;white-space: nowrap;text-align: center;" class="basic_table">
+                    <tr>
+                        <th style="text-align:center" j-word-label="W2018041913163666042">订单日期</th>
+                        <th style="text-align:center" j-word-label="W2018041913141737708">订单号码</th>
+                        <th style="text-align:center" j-word-label="W2018041913134073778">客户名称</th>
+                        <th style="text-align:center" j-word-label="W2018041913371894064">部门名称</th>
+                        <th style="text-align:center" j-word-label="W2018041913373764065">职员姓名</th>
+                        <th style="text-align:center" j-word-label="W2018041913172613778">交货期</th>
+                    </tr>
+                    <tbody id="find-order-msg">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="find-window-user" style="z-index: 2;" class="find-window">
+    <div id="find-window-user-top" style="padding-top: 55px" class="find-window-top">
+        <span class="mui-icon mui-icon-back"></span>
+    </div>
+    <div class="sub_contents" style="height: 87%">
+        <div class="search_area" style="height: 100%">
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th j-word-label="W2018041913373764065">职员姓名</th>
+                    <td colspan="1">
+                        <input type="text" id="this_user"  class="multi-find-windows search_input " data-date-format="yyyy-mm-dd">
+                    </td>
+                    <td>
+                        <button class="button-2000" id="find-users" style="font-size: 15px" j-word-label="W2018020109095825029">查询</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913385580778">职员工号</th>
+                    <td colspan="3">
+                        <input type="text" id="this_user_id"  class="multi-find-windows search_input" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913371894064">部门名称</th>
+                    <td colspan="3">
+                        <input type="text" id="this_group"  class="multi-find-windows search_input" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+            </table>
+            <div class="search_area" style="overflow-x: auto;overflow-y: auto;height:87%">
+                <table style="height: 30px;white-space: nowrap;text-align: center;" class="basic_table">
+                    <tr>
+                        <th >NO</th>
+                        <th style="text-align:center" j-word-label="W2018041913371894064">部门名称</th>
+                        <th style="text-align:center" j-word-label="W2018041913373764065">职员姓名</th>
+                        <th style="text-align:center" j-word-label="W2018041913385580778">职员工号</th>
+                    </tr>
+                    <tbody id="find-user-list">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="find-sales-user" style="z-index: 2;" class="find-window">
+    <div id="find-sales-user-top" style="padding-top: 55px" class="find-window-top">
+        <span class="mui-icon mui-icon-back"></span>
+    </div>
+    <div class="sub_contents" style="height: 87%">
+        <div class="search_area" style="height: 100%">
+            <table class="search_table">
+                <colgroup>
+                    <col width="100px;">
+                </colgroup>
+                <tr>
+                    <th j-word-label="W2018041913373764065">职员姓名</th>
+                    <td colspan="1">
+                        <input type="text" id="sales_user"  class="multi-find-windows search_input " data-date-format="yyyy-mm-dd">
+                    </td>
+                    <td>
+                        <button onclick="query_sales_user()" class="button-2000" style="font-size: 15px" j-word-label="W2018020109095825029">查询</button>
+                    </td>
+                    <td>
+                        <button onclick="upload_sales()" class="button-2000" id="sales-users" style="font-size: 15px" j-word-label="W2018050411092732363">导入</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913385580778">职员工号</th>
+                    <td colspan="3">
+                        <input type="text" id="sales_user_id"  class="multi-find-windows search_input" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+                <tr>
+                    <th j-word-label="W2018041913371894064">部门名称</th>
+                    <td colspan="3">
+                        <input type="text" id="sales_group"  class="multi-find-windows search_input" data-date-format="yyyy-mm-dd">
+                    </td>
+                </tr>
+            </table>
+            <div class="search_area" style="overflow-x: auto;overflow-y: auto;height:87%">
+                <table style="height: 30px;white-space: nowrap;text-align: center;" class="basic_table">
+                    <tr>
+                        <th >NO</th>
+                        <th style="text-align:center" j-word-label="W2018041913371894064">部门名称</th>
+                        <th style="text-align:center" j-word-label="W2018041913373764065">职员姓名</th>
+                        <th style="text-align:center" j-word-label="W2018041913385580778">职员工号</th>
+                    </tr>
+                    <tbody id="find-sales-list">
+
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="police" style="z-index: 10;position: absolute;background: transparent;width: 100%;height: 100%;display: none"></div>
+<div id="sheet_mt" class="mui-popover mui-popover-bottom mui-popover-action ">
+    <!-- 可选择菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" id="mt_take_photo" j-word-label="W2018050318052869026">拍摄照片</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" id="mt_choose_photo" j-word-label="W2018050318054041351">选择照片</a>
+        </li>
+    </ul>
+    <!-- 取消菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a href="#sheet_mt"><b>取消</b></a>
+        </li>
+    </ul>
+</div>
+<div id="sheet_test" class="mui-popover mui-popover-bottom mui-popover-action ">
+    <!-- 可选择菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" id="test_take_photo" j-word-label="W2018050318052869026">拍摄照片</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" id="test_choose_photo" j-word-label="W2018050318054041351">选择照片</a>
+        </li>
+    </ul>
+    <!-- 取消菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a href="#sheet_test"><b>取消</b></a>
+        </li>
+    </ul>
+</div>
+
+<input style="display: none"  type="file" id="mt_upimg" name="file" onchange="uploadPic_mt();" >
+<input style="display: none"  type="file" id="test_upimg" name="file" onchange="uploadPic_test();" >
+
+<script>
+    mui.previewImage();
+</script>
+{ #footer }
